@@ -1,3 +1,9 @@
+@import url("https://lazylibrary.netlify.app/components.css");
+
+:root{
+  --accent-color: rgb(108, 99, 255);
+}
+
 .App {
   text-align: center;
 }
