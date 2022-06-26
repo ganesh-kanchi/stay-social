@@ -26,8 +26,8 @@ export const LandingPage = () => {
                         </Typography>
                     </div>
 
-                    <Button onClick={()=> navigation("home")} variant="contained" className="mui-button"> Get Started </Button>
-                    <Link to="home" className="link" >
+                    <Button onClick={()=> navigation("signup")} variant="contained" className="mui-button"> Get Started </Button>
+                    <Link to="login" className="link" >
                         Have an account already?
                     </Link>
 

@@ -9,7 +9,6 @@ import { HomeOutlined, LabelOutlined, ArchiveOutlined, DeleteOutlined, Menu} fro
 const drawerWidth = 240;
 
 function ResponsiveDrawer(props) {
-  console.log(props)
   const { window, children } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 

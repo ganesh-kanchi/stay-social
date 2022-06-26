@@ -1,16 +1,12 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
 import "./App.css";
-import { LandingPage, HomePage } from "./pages";
+import {AllRoutes} from "./routes/AllRoutes"
 
 
 function App() {
   return (
     <div className="App">
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="home" element={<HomePage />} />
-      </Routes>
+      <AllRoutes />
     </div>
   );
 }
