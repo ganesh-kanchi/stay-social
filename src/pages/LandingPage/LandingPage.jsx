@@ -1,8 +1,11 @@
+import React from "react"
 import { Button, Typography } from "@mui/material";
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import "./LandingPage.css";
 
 export const LandingPage = () => {
+    const navigation = useNavigate()
+
     return (
         <div className="page-container">
             <div className="landing-page-container">
@@ -23,7 +26,7 @@ export const LandingPage = () => {
                         </Typography>
                     </div>
 
-                    <Button variant="contained" className="mui-button"> Get Started </Button>
+                    <Button onClick={()=> navigation("home")} variant="contained" className="mui-button"> Get Started </Button>
                     <Link to="home" className="link" >
                         Have an account already?
                     </Link>
