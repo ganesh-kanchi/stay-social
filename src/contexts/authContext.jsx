@@ -11,10 +11,11 @@ const AuthProvider = ({ children }) => {
     const navigation = useNavigate();
     const [ token, setToken ] = useState(localStorage.getItem("token") || "");
 
-    const [ isAuth, setIsAuth ] = useState(JSON.parse(localStorage.getItem("isAuth")) || false)
+    const [ isAuth, setIsAuth ] = useState(JSON.parse(localStorage.getItem("isAuth")) || false);
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || {firstName: "user", lastName: "name"});
 
     return (
-        <AuthContext.Provider value={{ isAuth, setIsAuth, token, setToken, navigation, location }} >
+        <AuthContext.Provider value={{ isAuth, setIsAuth, token, setToken, navigation, location, user, setUser }} >
             {children}
         </AuthContext.Provider>
     )

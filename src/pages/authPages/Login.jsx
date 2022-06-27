@@ -7,7 +7,7 @@ import { loginRequest } from '../../requests/authRequests';
 import { Loader } from '../../components/Loader/Loader';
 
  export const Login = () => {
-    const { setIsAuth, setToken, navigation } = useAuth();
+    const { setIsAuth, setToken, navigation, setUser } = useAuth();
     const [ login, setLogin ] = useState({ input: {}, error:""});
     const [ loading, setLoading ] = useState(false);
 
@@ -22,11 +22,14 @@ import { Loader } from '../../components/Loader/Loader';
             setLoading(true)
             const {data} = await loginRequest(login.input);
             setLoading(false);
+            setUser({...data.foundUser})
 
             localStorage.setItem("isAuth", true);
             localStorage.setItem("token", data.encodedToken);
             setToken(data.encodedToken);
-
+            
+            setUser({...data.foundUser})
+            localStorage.setItem("user", JSON.stringify({...data.foundUser}));
             setLogin({...login, input: {}});
             setIsAuth(true);
             navigation("home");

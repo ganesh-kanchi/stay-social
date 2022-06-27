@@ -1,20 +1,21 @@
 import { Typography } from "@mui/material";
 import React from "react"
-import ClippedDrawer from "../../components/ResponsiveDrawer/ResponsiveDrawer";
+import { useAuth } from "../../contexts/authContext";
 import "./HomePage.css";
+import { NavBar } from "../../components/NavBar/NavBar";
 // import { Loader } from "../../components/Loader/Loader";
 
 export const HomePage = () => {
+    const {user} = useAuth()
+    const {firstName } = user;
     return (
         <div className="page-container">
-            <ClippedDrawer>
-                <div className="collective-habits-dashboard">
-                    <header>
-
-                    <Typography variant="h5" component="div" className="user-greeting"> Welcome, User</Typography>
-                    </header>
-                </div>
-            </ClippedDrawer>
+            <NavBar />
+            <div className="page-main-section">
+                <header>
+                {user && <Typography variant="h5" component="div" className="user-greeting"> Welcome, {firstName}</Typography>}
+                </header>
+            </div>
         </div>
     )
 }

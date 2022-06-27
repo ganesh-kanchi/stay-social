@@ -1,0 +1,26 @@
+.sidebar-menu{
+    min-height: 90vh;
+    width: 20vw;
+    position: fixed;
+    left: 0;
+    top: 10vh;
+}
+
+.sidebar-menu-main{
+    /* margin: 0 1rem 0 1rem; */
+}
+
+.sidebar-menu-main .nav-link{
+    color: black;
+    text-decoration: none;    
+}
+
+.sidebar-menu-main .nav-link:hover{
+    color: var(--accent-color);
+}
+
+.sidebar-menu-main .active-nav-link{
+    color: var(--accent-color);
+}
+
+
