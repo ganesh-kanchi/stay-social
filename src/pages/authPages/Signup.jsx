@@ -55,7 +55,7 @@ export const Signup = () => {
                 <TextField onChange={credentialsChangeHandler} required name='password' className='auth-input-field' id="outlined-password-input" label="Password" variant="outlined" type="password" autoComplete="current-password" />
                 <TextField onChange={credentialsChangeHandler} required name='password-verification' className='auth-input-field' id="outlined-password-input" label="Confirm Password" variant="outlined" type="password" autoComplete="current-password" />
                 
-                <Button type="submit" sx={{bgcolor: 'var(--accent-color)'}} size="large" loading variant="contained" disabled={!signupInfo.isPasswordVerified}>Signup</Button>
+                <Button type="submit" sx={{bgcolor: 'var(--accent-color)'}} size="large" variant="contained" disabled={!signupInfo.isPasswordVerified}>Signup</Button>
                 {signupInfo.error && <Typography variant="body1" sx={{color:"red"}}>{signupInfo.error}</Typography> }
                 <Link to="/login" className="link" >Have an account already?</Link>
                 

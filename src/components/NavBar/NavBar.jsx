@@ -1,15 +1,11 @@
 import React from 'react';
 import {v4 as uuid} from 'uuid'
-import {List,ListItem, ListItemButton,ListItemIcon,ListItemText, Card, CardHeader, Avatar, IconButton, } from '@mui/material';
-import { HomeOutlined, LabelOutlined, ArchiveOutlined, DeleteOutlined, LogoutOutlined } from '@mui/icons-material';
+import {List,ListItem, ListItemButton,ListItemIcon,ListItemText } from '@mui/material';
+import { HomeOutlined, LabelOutlined, ArchiveOutlined, DeleteOutlined } from '@mui/icons-material';
 import { NavLink } from 'react-router-dom';
 import "./NavBar.css";
-import { useAuth } from '../../contexts/authContext';
 
 export const NavBar = () => {
-    const {user} = useAuth();
-    const {firstName, lastName} = user;
-
     return (
         <nav className='sidebar-menu'>
             <List className='sidebar-menu-main'>
@@ -29,22 +25,7 @@ export const NavBar = () => {
                 ))}
             </List>
 
-            <Card sx={{ minWidth: '100%', borderTop: 0, boxShadow: 0, position: 'absolute', bottom: '0', padding: '0' }}>
-                <CardHeader
-                    avatar={ 
-                    <Avatar aria-label="avatar">
-                        {firstName.slice(0,1).toUpperCase()}
-                    </Avatar>
-                    }
-                    action={
-                    <IconButton aria-label="settings">
-                        <LogoutOutlined fontSize='large' />
-                    </IconButton>
-                    }
-                    title={(firstName + " " + lastName)}
-                    subheader="View Profile"
-                />
-            </Card>
+            
         </nav>
     )
 }

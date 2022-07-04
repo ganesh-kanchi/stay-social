@@ -1,13 +1,6 @@
-.sidebar-menu{
-    min-height: 90vh;
-    width: 20vw;
-    position: fixed;
-    left: 0;
-    top: 10vh;
-}
-
 .sidebar-menu-main{
-    /* margin: 0 1rem 0 1rem; */
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .sidebar-menu-main .nav-link{
@@ -22,5 +15,3 @@
 .sidebar-menu-main .active-nav-link{
     color: var(--accent-color);
 }
-
-
