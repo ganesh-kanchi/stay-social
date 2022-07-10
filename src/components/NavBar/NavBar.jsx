@@ -14,11 +14,11 @@ export const NavBar = () => {
                     { ({isActive}) =>
                     (<ListItem key={text} disablePadding>
                     <ListItemButton className='menu-link-list'>
-                        <ListItemIcon sx={isActive ? {color: 'var(--accent-color)'} : {color: 'black'}}>{
-                        index === 0 ? <HomeOutlined /> : index === 1 ? <LabelOutlined /> : index === 2 ? <ArchiveOutlined /> : <DeleteOutlined />
+                        <ListItemIcon className="list-item-icon-container" sx={isActive ? {color: 'var(--accent-color)'} : {color: 'black'}}>{
+                        index === 0 ? <HomeOutlined fontSize="inherit" /> : index === 1 ? <LabelOutlined fontSize="inherit" /> : index === 2 ? <ArchiveOutlined fontSize="inherit" /> : <DeleteOutlined fontSize="inherit" />
                         }
                         </ListItemIcon>
-                        <ListItemText primary={text} />
+                        <ListItemText primary={text} className="sidebar-menu-title" />
                     </ListItemButton>
                     </ListItem>)}
                 </NavLink>

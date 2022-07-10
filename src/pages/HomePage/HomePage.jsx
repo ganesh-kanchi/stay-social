@@ -7,7 +7,7 @@ import {ProfileCard} from "../../components/ProfileCard/ProfileCard"
 // import { Loader } from "../../components/Loader/Loader";
 
 export const HomePage = () => {
-    const {user} = useAuth()
+    const { user } = useAuth()
     const { firstName } = user;
     return (
         <div className="grid-page-container">

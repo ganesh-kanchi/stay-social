@@ -1,5 +1,4 @@
-import React, { useContext } from 'react'
-import { createContext, useState } from "react";
+import React, { useContext, createContext, useState } from 'react';
 import { useLocation, useNavigate } from "react-router-dom";
 
 
@@ -14,8 +13,16 @@ const AuthProvider = ({ children }) => {
     const [ isAuth, setIsAuth ] = useState(JSON.parse(localStorage.getItem("isAuth")) || false);
     const [user, setUser] = useState( JSON.parse(localStorage.getItem("user")) || {firstName: "user", lastName: "name"})
 
+
+    const logoutHandler = () => {
+        setIsAuth(false)
+        setToken("")
+        localStorage.delete("user")
+        localStorage.delete("token")
+    }
+
     return (
-        <AuthContext.Provider value={{ isAuth, setIsAuth, token, setToken, navigation, location, user, setUser }} >
+        <AuthContext.Provider value={{ isAuth, setIsAuth, token, setToken, navigation, location, user, setUser, logoutHandler }} >
             {children}
         </AuthContext.Provider>
     )

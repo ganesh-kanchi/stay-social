@@ -2,6 +2,7 @@ import React from "react";
 import {createRoot} from "react-dom/client";
 import { BrowserRouter as Router } from "react-router-dom";
 import { AuthProvider } from "./contexts/authContext";
+import { DocumentSizeProvider } from "./contexts/documentSizeContext";
 import "./index.css";
 import App from "./App";
 import { makeServer } from "./server";
@@ -12,8 +13,10 @@ const container = document.getElementById('root');
 const root = createRoot(container)
 root.render(
     <Router>
-      <AuthProvider>
-        <App />
-      </AuthProvider>
+      <DocumentSizeProvider>
+        <AuthProvider>
+          <App />
+        </AuthProvider>
+      </DocumentSizeProvider>
     </Router>
 )
