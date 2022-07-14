@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { TextField, Button, Typography } from '@mui/material';
 import "./auth.css";
-import {Link} from "react-router-dom";
-import { signupRequest } from '../../requests/authRequests';
-import { useAuth } from '../../contexts/authContext';
+import { Link } from "react-router-dom";
 import { Loader } from '../../components/Loader/Loader';
+import { useSelector } from 'react-redux';
+import { signupHandler } from '../../features/auth';
 
 export const Signup = () => {
-    const { setIsAuth, setToken, navigation } = useAuth()
-    const [loading, setLoading] = useState(false)
+    const {loading} = useSelector((state) => state.auth);
     const [ signupInfo, setSignupInfo ] = useState({input:{},error:"", isPasswordVerified: true});
 
     const credentialsChangeHandler = (e) => {
@@ -23,31 +22,10 @@ export const Signup = () => {
         }
     }
 
-    const handleSignup = async (e) => {
-        e.preventDefault()
-
-        try {
-            setLoading(true);
-            const {data} = await signupRequest(signupInfo.input);
-            setLoading(false);
-
-            localStorage.setItem("isAuth", true);
-            localStorage.setItem("token", data.encodedToken);
-            setToken(data.encodedToken);
-
-            setSignupInfo({...signupInfo, input: {}});
-            setIsAuth(true);
-            navigation("home");
-        } catch(err) {
-            setLoading(false);
-            setSignupInfo({...signupInfo, error: err.response.data.errors[0]});
-        }
-    }
-
     return (
         <div className="page-container auth-page">
             { loading ? <Loader /> :
-            <form className="authentication-form" onSubmit={handleSignup}>
+            <form className="authentication-form" onSubmit={signupHandler}>
                 <Typography component="div" variant="h3">Signup</Typography>
                 <TextField onChange={credentialsChangeHandler} required name='first-name' className='auth-input-field' id="outlined-basic" type="text" label="First-name" variant="outlined" />
                 <TextField onChange={credentialsChangeHandler} required name='last-name' className='auth-input-field' id="outlined-basic" label="Last-name" type="text" variant="outlined" />

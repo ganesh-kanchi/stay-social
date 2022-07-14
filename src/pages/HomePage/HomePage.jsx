@@ -1,14 +1,18 @@
 import { Typography, Button } from "@mui/material";
-import React from "react"
-import { useAuth } from "../../contexts/authContext";
+import React, { useEffect } from "react"
 import "./HomePage.css";
 import { NavBar } from "../../components/NavBar/NavBar";
 import {ProfileCard} from "../../components/ProfileCard/ProfileCard"
-// import { Loader } from "../../components/Loader/Loader";
+import {fetch, selectHabits} from "../../features/habits"
+import { useSelector } from "react-redux";
 
 export const HomePage = () => {
-    const { user } = useAuth()
+    const {user, token} = useSelector((state)=> state.auth);
+    const habitsData = useSelector(selectHabits);
     const { firstName } = user;
+    useEffect( ()=>{
+        fetch(token)
+        },[]);
     return (
         <div className="grid-page-container">
             <Typography variant="h4" component="div" className="main-head">Track<span className="accent-text">Them</span>Habits</Typography>
@@ -40,7 +44,7 @@ export const HomePage = () => {
                 </div>
                 <Typography variant="h6" component="div">ACTIVE</Typography>
                 <div className="flex-four-column">
-                    {["task #1", "task #2", "task #3", "task #4"].map(task => 
+                    {habitsData.map(task => 
                         (<div className="flex-item card-minimal">
                             <Typography variant="h5" component="div">{task}</Typography>
                             <Typography variant="h3" component="div">16</Typography>
@@ -49,7 +53,7 @@ export const HomePage = () => {
                 </div>
                 <Typography variant="h6" component="div">COMPLETED</Typography>
                 <div className="flex-four-column">
-                    {["task #1", "task #2", "task #3", "task #4"].map(task => 
+                    {habitsData.map(task => 
                         (<div className="flex-item card-minimal">
                             <Typography variant="h5" component="div">{task}</Typography>
                             <Typography variant="h3" component="div">16</Typography>

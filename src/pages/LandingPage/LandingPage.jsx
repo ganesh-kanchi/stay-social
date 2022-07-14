@@ -1,12 +1,12 @@
 import React from "react"
 import { Button, Typography } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom"
+import { useSelector } from "react-redux";
 import "./LandingPage.css";
-import { useAuth } from "../../contexts/authContext";
 
 export const LandingPage = () => {
     const navigation = useNavigate()
-    const {isAuth} = useAuth();
+    const {token} = useSelector((state)=> state.auth)
 
     return (
         <div className="page-container">
@@ -28,7 +28,7 @@ export const LandingPage = () => {
                         </Typography>
                     </div>
 
-                    <Button onClick={()=> isAuth ? navigation("home") : navigation("signup")} variant="contained" className="mui-button"> Get Started </Button>
+                    <Button onClick={()=> token ? navigation("home") : navigation("signup")} variant="contained" className="mui-button"> Get Started </Button>
                     <Link to="login" className="link" >
                         Have an account already?
                     </Link>
