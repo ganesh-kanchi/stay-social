@@ -1,23 +1,33 @@
 import { Typography, Button } from "@mui/material";
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import "./HomePage.css";
 import { NavBar } from "../../components/NavBar/NavBar";
 import {ProfileCard} from "../../components/ProfileCard/ProfileCard"
-import {fetch, selectHabits} from "../../features/habits"
+import { HabitModal } from "../../components/Modal/Modal";
+import { HabitCard } from "../../components/HabitCard/HabitCard"
+import {fetchHabits, selectHabits} from "../../features/habits";
 import { useSelector } from "react-redux";
+import { HabitsListing } from "../../components/HabitListing/HabitListing";
+// import { addHabit } from "../../features/habits/habitsSlice";
 
 export const HomePage = () => {
     const {user, token} = useSelector((state)=> state.auth);
     const habitsData = useSelector(selectHabits);
     const { firstName } = user;
+    // const dispatch = useDispatch();
     useEffect( ()=>{
-        fetch(token)
-        },[]);
+        fetchHabits(token)
+        },[habitsData]
+    );
+
+    const [isOpen,setIsOpen] = useState(false);
+    const handleOpen = () => setIsOpen(true);
     return (
         <div className="grid-page-container">
             <Typography variant="h4" component="div" className="main-head">Track<span className="accent-text">Them</span>Habits</Typography>
             <NavBar />
             <ProfileCard />
+            <HabitModal isOpen={isOpen} setIsOpen={setIsOpen} />
             
             <div className="page-main-section">
                 <div className="habits-dashboard-head" >
@@ -40,16 +50,19 @@ export const HomePage = () => {
                 </div>
                 <div className="habits-dashboard-head">
                     <Typography variant="h5" component="div">My Habits</Typography>
-                    <Button variant="text">+ New Habit</Button>
+                    <Button variant="text" onClick={handleOpen}>+ New Habit</Button>
                 </div>
-                <Typography variant="h6" component="div">ACTIVE</Typography>
+                {habitsData.length > 0 ? (
+                    <HabitsListing habits={habitsData} />
+                ): null}
+                
+                    {/* <HabitsListing habits={habitsData} /> */}
+                
+                {/* <Typography variant="h6" component="div">ACTIVE</Typography>
                 <div className="flex-four-column">
                     {habitsData.map(task => 
-                        (<div className="flex-item card-minimal">
-                            <Typography variant="h5" component="div">{task}</Typography>
-                            <Typography variant="h3" component="div">16</Typography>
-                            <Typography variant="h6" component="div">Total Count</Typography>
-                        </div>))}
+                            <HabitCard task={task} />
+                        )}
                 </div>
                 <Typography variant="h6" component="div">COMPLETED</Typography>
                 <div className="flex-four-column">
@@ -59,7 +72,7 @@ export const HomePage = () => {
                             <Typography variant="h3" component="div">16</Typography>
                             <Typography variant="h6" component="div">Total Count</Typography>
                         </div>))}
-                </div>
+                </div> */}
             </div>
         </div>
     )

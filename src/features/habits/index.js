@@ -1,1 +1,1 @@
-export { fetch, selectHabits } from "./habitsSlice"
+export { fetchHabits, selectHabits } from "./habitsSlice"

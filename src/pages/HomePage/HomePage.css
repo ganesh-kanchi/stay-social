@@ -8,7 +8,6 @@
   .page-main-section{
     padding: 1rem;
     grid-area: page-content;
-    
   }
 
   .flex-four-column{
@@ -19,13 +18,6 @@
 
   .flex-four-column .card-minimal{
     background-color: rgb(250, 250, 250);
-  }
-
-  .flex-item{
-    display: flex;
-    flex-direction: column;
-    padding: 1rem 2rem;
-    border-radius: 0.5rem;
   }
 
   .sidebar-menu{
