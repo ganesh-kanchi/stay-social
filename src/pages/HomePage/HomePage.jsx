@@ -4,19 +4,17 @@ import "./HomePage.css";
 import { NavBar } from "../../components/NavBar/NavBar";
 import {ProfileCard} from "../../components/ProfileCard/ProfileCard"
 import { HabitModal } from "../../components/Modal/Modal";
-import { HabitCard } from "../../components/HabitCard/HabitCard"
 import {fetchHabits, selectHabits} from "../../features/habits";
 import { useSelector } from "react-redux";
 import { HabitsListing } from "../../components/HabitListing/HabitListing";
-// import { addHabit } from "../../features/habits/habitsSlice";
 
 export const HomePage = () => {
     const {user, token} = useSelector((state)=> state.auth);
     const habitsData = useSelector(selectHabits);
     const { firstName } = user;
-    // const dispatch = useDispatch();
     useEffect( ()=>{
         fetchHabits(token)
+        localStorage.setItem("habits",habitsData)
         },[habitsData]
     );
 

@@ -1,10 +1,12 @@
 import React, {useState} from "react";
-import { Modal, Button, Box, TextField, Typography, Stack, FormControl, InputLabel, Select, MenuItem, FormGroup, FormControlLabel, Checkbox } from "@mui/material";
+import { Modal, Button, IconButton, Box, TextField, Typography, Grid, Stack, FormControl, InputLabel, Select, MenuItem, FormGroup, FormControlLabel, Checkbox } from "@mui/material";
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { useSelector, useDispatch } from "react-redux";
 import { addHabit } from "../../features/habits/habitsSlice";
+import CloseIcon from '@mui/icons-material/Close'
+import './Modal.css';
 
 export const HabitModal = ({isOpen, setIsOpen}) => {
     const { user, token } = useSelector(state=> state.auth);
@@ -14,7 +16,7 @@ export const HabitModal = ({isOpen, setIsOpen}) => {
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: 400,
+        width: 500,
         maxHeight: 'l',
         bgcolor: 'background.paper',
         border: '2px solid #000',
@@ -43,13 +45,21 @@ export const HabitModal = ({isOpen, setIsOpen}) => {
         aria-describedby="modal-modal-description"
         >
         <Box sx={style}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-                New Habit
-            </Typography>
+            <div className="modal-headline">
+                <Typography id="modal-modal-title" variant="h6" component="h2">
+                    New Habit
+                </Typography>
+                <IconButton onClick={handleClose} aria-label="delete" size="large">
+                    <CloseIcon fontSize="inherit" />
+                </IconButton>
+            </div>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <Stack spacing={2}>
+                {/* <Stack spacing={2}> */}
+                <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                    <Grid item xs={6}>
                     <TextField id="outlined-basic" value={habitInfo.name} onChange={HabitInfoChangeHandler} label="Name" name="name" variant="outlined" />
-                    
+                    </Grid>
+                    <Grid item xs={6}>
                     <DesktopDatePicker
                         label="Start Date"
                         inputFormat="dd/MM/yyyy"
@@ -57,6 +67,8 @@ export const HabitModal = ({isOpen, setIsOpen}) => {
                         onChange={dateChangeHandler}
                         renderInput={(params) => <TextField {...params} name="startDate" />}
                         />
+                    </Grid>
+                    <Grid item xs={6}>
                     <DesktopDatePicker
                         label="End Date"
                         inputFormat="dd/MM/yyyy"
@@ -64,6 +76,8 @@ export const HabitModal = ({isOpen, setIsOpen}) => {
                         onChange={dateChangeHandler}
                         renderInput={(params) => <TextField {...params} name="endDate" />}
                         />
+                    </Grid>
+                    <Grid item xs={6}>
                     <FormControl fullWidth>
                         <InputLabel id="demo-simple-select-label">Goal</InputLabel>
                         <Select
@@ -82,7 +96,9 @@ export const HabitModal = ({isOpen, setIsOpen}) => {
                             <MenuItem value={10}>10 Times</MenuItem>
                         </Select>
                     </FormControl>
+                    </Grid>
 
+                    <Grid item xs={6}>
                     <FormControl fullWidth>
                         <InputLabel id="demo-simple-select-label">Repeat</InputLabel>
                         <Select
@@ -99,6 +115,9 @@ export const HabitModal = ({isOpen, setIsOpen}) => {
                             <MenuItem value={"Yearly"}>Yearly </MenuItem>
                         </Select>
                     </FormControl>
+                    </Grid>
+
+                    <Grid item xs={6}>
                     <FormControl fullWidth>
                         <InputLabel id="demo-simple-select-label">Color</InputLabel>
                         <Select
@@ -109,13 +128,14 @@ export const HabitModal = ({isOpen, setIsOpen}) => {
                             label="Color"
                             onChange={HabitInfoChangeHandler}
                         >
-                            <MenuItem value={"Red"}>Red </MenuItem>
-                            <MenuItem value={"Green"}>Green </MenuItem>
-                            <MenuItem value={"Blue"}>Blue </MenuItem>
-                            <MenuItem value={"Yellow"}>Yellow </MenuItem>
-                            <MenuItem value={"Purple"}>Purple </MenuItem>
+                            <MenuItem value={"red"}>Red </MenuItem>
+                            <MenuItem value={"green"}>Green </MenuItem>
+                            <MenuItem value={"blue"}>Blue </MenuItem>
+                            <MenuItem value={"yellow"}>Yellow </MenuItem>
+                            <MenuItem value={"purple"}>Purple </MenuItem>
                         </Select>
                     </FormControl>
+                    </Grid>
                     {/* {user.labels.length>0 && (
 
                         <FormControl>
@@ -126,13 +146,15 @@ export const HabitModal = ({isOpen, setIsOpen}) => {
                         </FormControl>
                             )
                     } */}
-                    <Button variant="contained" onClick={()=>{
+                    
+                </Grid>
+                <Button variant="contained" sx={{margin: 1}} onClick={()=>{
                             dispatch(addHabit({token,habitInfo}))
                             setHabitInfo(habitInitialState)
                             handleClose()
                         }} className="mui-button">Done</Button>
 
-                </Stack>
+                {/* </Stack> */}
             </LocalizationProvider>
         </Box>
         </Modal>

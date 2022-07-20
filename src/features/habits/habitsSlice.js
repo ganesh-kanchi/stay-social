@@ -60,5 +60,7 @@ export const habitsSlice = createSlice({
 export const { fetch, add } = habitsSlice.actions;
 
 export const selectHabits = (state) => state.habit.habits;
+export const selectLabels = (state) => state.habit.labels;
+
 
 export default habitsSlice.reducer;
