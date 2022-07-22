@@ -34,6 +34,10 @@
     color: var(--accent-color);
 }
 
+.landing-page-headline{
+    text-align: center;
+}
+
 .landing-page-text-container button{
     width: max-content;
     margin: auto;
@@ -48,6 +52,9 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
+}
+.landing-page-text-container .link{
+    text-align: center;
 }
 
 .landing-page-text-container .mui-button{

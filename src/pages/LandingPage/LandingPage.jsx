@@ -33,9 +33,9 @@ export const LandingPage = () => {
                     </Link>
 
                 </div>
-                <div className="landing-page-img-container flex-child">
-                    <img src="assets/undraw_progress.svg" className="responsive-image" alt="progress" />
-                </div>
+                {/* <div className="landing-page-img-container flex-child">
+                    <img src="assets/undraw_progress" className="responsive-image" alt="progress" />
+                </div> */}
             </div>
         </div>
     )
