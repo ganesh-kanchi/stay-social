@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Loader, NavBar, SuggestedUsers, UserSearch } from "components";
+import { NavBar, SuggestedUsers, UserSearch } from "components";
 import { PostCard } from "features/post";
 import { getBookmarks, getAllUsers } from "features/user";
 import { sortByDate } from "utilities";
 
 export const BookmarksPage = () => {
   const { token } = useSelector((state) => state.auth);
-  const { bookmarks, isLoading } = useSelector((state) => state.user);
+  const { bookmarks } = useSelector((state) => state.user);
   const { posts } = useSelector((state) => state.post);
 
   const dispatch = useDispatch();
@@ -36,9 +36,7 @@ export const BookmarksPage = () => {
         </h1>
 
         <div>
-          {isLoading ? (
-            <Loader />
-          ) : latestBookmarks.length ? (
+          {latestBookmarks.length ? (
             [...latestBookmarks]
               .reverse()
               .map((bookmarkedPost) => (

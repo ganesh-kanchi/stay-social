@@ -11,7 +11,6 @@ import {
   editCommentRequest,
   deleteCommentRequest,
 } from "requests";
-import toast from "react-hot-toast";
 
 export const getPosts = createAsyncThunk(
   "posts/getPosts",
@@ -175,8 +174,6 @@ export const postsSlice = createSlice({
     posts: [],
     singlePost: null,
     activeSort: "Latest",
-    isLoading: false,
-    loadingId: "",
 
     error: "",
   },
@@ -188,39 +185,23 @@ export const postsSlice = createSlice({
     setActiveSort: (state, { payload }) => {
       state.activeSort = payload;
     },
-
-    setLoadingId: (state, { payload }) => {
-      state.loadingId = payload;
-    },
   },
 
   extraReducers: {
-    [getPosts.pending]: (state) => {
-      state.isLoading = true;
-    },
     [getPosts.fulfilled]: (state, { payload }) => {
-      state.isLoading = false;
       state.posts = payload;
     },
     [getPosts.rejected]: (state, { payload }) => {
-      state.isLoading = false;
       state.error = payload;
     },
-
-    [getSinglePost.pending]: (state) => {
-      state.isLoading = true;
-    },
     [getSinglePost.fulfilled]: (state, { payload }) => {
-      state.isLoading = false;
       state.singlePost = payload;
     },
     [getSinglePost.rejected]: (state) => {
-      state.isLoading = false;
     },
 
     [createPost.fulfilled]: (state, { payload }) => {
       state.posts = payload;
-      toast.success("Post added", { id: state.loadingId });
     },
     [createPost.rejected]: (state, { payload }) => {
       state.error = payload;
@@ -228,7 +209,6 @@ export const postsSlice = createSlice({
 
     [editPost.fulfilled]: (state, { payload }) => {
       state.posts = payload;
-      toast.success("Post updated", { id: state.loadingId });
     },
     [editPost.rejected]: (state, { payload }) => {
       state.error = payload;
@@ -267,6 +247,6 @@ export const postsSlice = createSlice({
   },
 });
 
-export const { resetSinglePost, setActiveSort, setLoadingId } =
+export const { resetSinglePost, setActiveSort } =
   postsSlice.actions;
 export default postsSlice.reducer;

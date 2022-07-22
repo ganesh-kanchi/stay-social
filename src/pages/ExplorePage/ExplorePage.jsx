@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Loader, NavBar, SuggestedUsers, UserSearch } from "components";
+import { NavBar, SuggestedUsers, UserSearch } from "components";
 import { getPosts, PostCard } from "features/post";
 import { getAllUsers } from "features/user";
 import { sortByDate } from "utilities";
 
 export const ExplorePage = () => {
   const dispatch = useDispatch();
-  let { posts, isLoading } = useSelector((state) => state.post);
+  let { posts } = useSelector((state) => state.post);
 
   useEffect(() => {
     dispatch(getPosts());
@@ -29,9 +29,7 @@ export const ExplorePage = () => {
         </h1>
 
         <div>
-          {isLoading ? (
-            <Loader />
-          ) : latestPosts.length ? (
+          { latestPosts.length ? (
             [...latestPosts]
               .reverse()
               .map((post) => <PostCard post={post} key={post._id} />)

@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  Loader,
   NavBar,
   SuggestedUsers,
   UserSearch,
@@ -40,7 +39,6 @@ export const SinglePost = () => {
   const {
     posts,
     singlePost: currentPost,
-    isLoading,
   } = useSelector((state) => state.post);
   const { users, bookmarks } = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -83,9 +81,7 @@ export const SinglePost = () => {
         </h1>
 
         <div>
-          {isLoading ? (
-            <Loader />
-          ) : currentPost ? (
+          {currentPost ? (
             <div
               className="flex flex-col gap-2 bg-darkSecondary text-sm border-b border-darkGrey px-4 py-3 break-all"
               ref={postRef}

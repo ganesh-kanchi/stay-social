@@ -3,8 +3,7 @@ import { loginRequest, signupRequest } from "requests/authRequests";
 
 const initialState = {
     token: localStorage.getItem("token") || null,
-    user: JSON.parse(localStorage.getItem("user")) || null,
-    loading: false
+    user: JSON.parse(localStorage.getItem("user")) || null
 }
 
 export const loginHandler= createAsyncThunk(
@@ -64,29 +63,14 @@ export const authSlice = createSlice({
         }
     },
     extraReducers: {
-        [loginHandler.pending]: ( state ) => {
-            state.loading = true;
-        },
         [loginHandler.fulfilled]: ( state, { payload } ) => {
-            state.loading = false;
             state.token = payload.encodedToken;
             state.user = payload.foundUser;
         },
-        [loginHandler.rejected]: ( state ) => {
-            state.loading = false;
-        },
-
-        [signupHandler.pending]: ( state ) => {
-            state.loading = true;
-        },
         [signupHandler.fulfilled]: ( state, { payload } ) => {
-            state.loading = false;
             state.token = payload.encodedToken;
             state.user = payload.createdUser;
         },
-        [signupHandler.rejected]: ( state ) => {
-            state.loading = false;
-        }
     }
 })
 

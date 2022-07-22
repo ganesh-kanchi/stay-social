@@ -12,7 +12,6 @@ export { CommentOptionsModal } from "./components/CommentOptionsModal";
 export {
   getPosts,
   getSinglePost,
-  setLoadingId,
   resetSinglePost,
   setActiveSort,
   createPost,

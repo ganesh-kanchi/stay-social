@@ -1,9 +1,8 @@
 import "../styles.css";
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import toast from "react-hot-toast";
 import { UserAvatar } from "components";
-import { createPost, setLoadingId } from "features/post";
+import { createPost } from "features/post";
 import { focusInput } from "utilities";
 
 export const NewPost = () => {
@@ -22,7 +21,6 @@ export const NewPost = () => {
   const submitPost = async (e) => {
     e.preventDefault();
 
-    dispatch(setLoadingId(toast.loading("Adding post")));
 
       dispatch(createPost({ input, image: "", imageAlt: "", token, user }));
 

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { NavBar, Loader, SuggestedUsers, UserSearch } from "components";
+import { NavBar, SuggestedUsers, UserSearch } from "components";
 import { ProfileDetails, getAllUsers } from "features/user";
 import { getPosts, PostCard } from "features/post";
 
@@ -9,7 +9,7 @@ export const ProfilePage = () => {
     const { username } = useParams();
   const navigate = useNavigate();
 
-  const { posts, isLoading } = useSelector((state) => state.post);
+  const { posts } = useSelector((state) => state.post);
   const { users } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
@@ -41,9 +41,7 @@ export const ProfilePage = () => {
 
         {currentUser ? <ProfileDetails currentUser={currentUser} /> : null}
 
-        {isLoading ? (
-          <Loader />
-        ) : !currentUser ? (
+        {!currentUser ? (
           <p className="p-4 text-center">User not found.</p>
         ) : currentUserPosts?.length ? (
           [...currentUserPosts]

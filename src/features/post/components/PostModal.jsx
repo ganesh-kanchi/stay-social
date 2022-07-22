@@ -1,9 +1,8 @@
 import "../styles.css";
 import { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import toast from "react-hot-toast";
 import { UserAvatar } from "components";
-import { createPost, editPost, setLoadingId } from "features/post";
+import { createPost, editPost } from "features/post";
 import { focusInput } from "utilities";
 import { useOnClickOutside } from "customHooks/useOnClickOutside";
 
@@ -26,7 +25,6 @@ export const PostModal = ({ post, setShowNewPostModal, setShowOptions }) => {
     e.preventDefault();
 
     if (post) {
-      dispatch(setLoadingId(toast.loading("Updating post")));
       
         dispatch(
           editPost({
@@ -39,7 +37,6 @@ export const PostModal = ({ post, setShowNewPostModal, setShowOptions }) => {
         );
       setShowOptions(false);
     } else {
-      dispatch(setLoadingId(toast.loading("Adding post")));
 
       
         dispatch(

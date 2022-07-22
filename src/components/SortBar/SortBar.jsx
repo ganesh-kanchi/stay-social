@@ -24,7 +24,7 @@ export const SortBar = () => {
           onClick={() => setShowSortModal((prev) => !prev)}
         >
         <Sort />
-          {/* <i className="fa-solid fa-sliders"></i> */}
+          
         </button>
 
         {showSortModal ? (

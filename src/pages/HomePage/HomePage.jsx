@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 import "./HomePage.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllUsers } from "features/user";
-import { Loader, SuggestedUsers, NavBar, UserSearch, SortBar } from "components";
+import { SuggestedUsers, NavBar, UserSearch, SortBar } from "components";
 import { NewPost, PostCard, getPosts } from "features/post";
 import { sortByDate } from "utilities";
 
@@ -10,7 +10,7 @@ export const HomePage = () => {
     const dispatch = useDispatch();
     const { user } = useSelector((state)=> state.auth);
     const { users } = useSelector((state)=> state.user);
-    const { posts, loading, activeSort } = useSelector((state) => state.post);
+    const { posts, activeSort } = useSelector((state) => state.post);
 
     useEffect( () => {
         dispatch(getPosts());
@@ -48,9 +48,7 @@ export const HomePage = () => {
                     <SortBar />
 
                     <div>
-                        {loading ? (
-                        <Loader />
-                        ) : sortedPosts?.length ? (
+                        {sortedPosts?.length ? (
                         [...sortedPosts]
                             .reverse()
                             .map((post) => <PostCard post={post} key={post._id} />)

@@ -1,7 +1,7 @@
 import "../styles.css";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { UserAvatar, Loader } from "components";
+import { UserAvatar } from "components";
 import { logoutHandler } from "features/auth";
 import { followUser, unfollowUser } from "features/user";
 import { EditProfileModal } from "./EditProfileModal";
@@ -9,7 +9,7 @@ import { FollowListModal } from "./FollowListModal";
 
 export const ProfileDetails = ({ currentUser }) => {
   const { user, token } = useSelector((state) => state.auth);
-  const { users, isLoading } = useSelector((state) => state.user);
+  const { users } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const [editModal, setEditModal] = useState(false);
@@ -37,7 +37,7 @@ export const ProfileDetails = ({ currentUser }) => {
 
   return (
     <div className="profile-details p-4 grid sm:grid-cols-[7rem_1fr] gap-3 border-b border-darkGrey">
-      {isLoading ? <Loader /> : <UserAvatar user={currentUser} />}
+      {<UserAvatar user={currentUser} />}
 
       <div className="flex flex-col grow gap-3">
         <div>

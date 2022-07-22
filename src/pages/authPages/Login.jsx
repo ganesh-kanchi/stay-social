@@ -3,13 +3,11 @@ import { Typography, Button, OutlinedInput,InputAdornment, IconButton, InputLabe
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { Link } from "react-router-dom"
 import "./auth.css";
-import { Loader } from 'components/Loader/Loader';
 import { loginHandler } from 'features/auth';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
  export const Login = () => {
     const dispatch = useDispatch();
-    const { loading } = useSelector((state) => state.auth)
     const [ login, setLogin ] = useState({ input: {}, error:"", showPassword: false});
     const guestLogin = {username: "ganesh-kanchi", password: "ganeshk123"};
 
@@ -29,13 +27,14 @@ import { useDispatch, useSelector } from 'react-redux';
         event.preventDefault();
       };
 
-      const formSubmit = () => {
+      const formSubmit = (e) => {
+        e.preventDefault()
         dispatch(loginHandler({login, setLogin}))
       }
 
     return (
         <div className="page-container auth-page">
-            {loading ? <Loader /> : 
+            {
                 <form className="authentication-form" onSubmit={formSubmit} >
                 <Typography component="div" variant="h3">Login</Typography>
                 <TextField 

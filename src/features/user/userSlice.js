@@ -8,7 +8,6 @@ import {
   unfollowUserRequest,
   updateProfileRequest,
 } from "requests";
-import toast from "react-hot-toast";
 import { fetchSearchedUser } from "utilities";
 
 export const getAllUsers = createAsyncThunk(
@@ -48,7 +47,6 @@ export const addBookmark = createAsyncThunk(
       const { data, status } = await addBookmarkRequest(arg);
 
       if (status === 200) {
-        toast.success("Post added to bookmark");
         return data.bookmarks;
       }
     } catch {
@@ -64,7 +62,6 @@ export const removeBookmark = createAsyncThunk(
       const { data, status } = await removeBookmarkRequest(arg);
 
       if (status === 200) {
-        toast.success("Post removed from bookmark");
         return data.bookmarks;
       }
     } catch {
@@ -80,7 +77,6 @@ export const followUser = createAsyncThunk(
       const { data, status } = await followUserRequest(arg);
 
       if (status === 200) {
-        toast.success(`${data.followUser.username} followed`);
         return data;
       }
     } catch {
@@ -96,7 +92,6 @@ export const unfollowUser = createAsyncThunk(
       const { data, status } = await unfollowUserRequest(arg);
 
       if (status === 200) {
-        toast.success(`${data.followUser.username} unfollowed`);
         return data;
       }
     } catch {
@@ -112,7 +107,6 @@ export const updateProfile = createAsyncThunk(
       const { data, status } = await updateProfileRequest(arg);
 
       if (status === 201) {
-        toast.success("Profile updated");
         return data.user;
       }
     } catch {
@@ -140,14 +134,10 @@ export const userSlice = createSlice({
     bookmarks: [],
     searchVal: "",
     searchResult: [],
-    isLoading: false,
     error: "",
   },
 
   reducers: {
-    setLoading: (state) => {
-      state.isLoading = true;
-    },
     setSearchVal: (state, { payload }) => {
       state.searchVal = payload;
       state.searchResult = fetchSearchedUser(state.users, payload);
@@ -163,11 +153,9 @@ export const userSlice = createSlice({
       state.users = state.users.map((user) =>
         user.username === payload.username ? payload : user
       );
-      state.isLoading = false;
     },
 
     [updateProfile.rejected]: (state) => {
-      state.isLoading = false;
     },
 
     [getBookmarks.fulfilled]: (state, { payload }) => {
@@ -194,5 +182,5 @@ export const userSlice = createSlice({
   },
 });
 
-export const { setLoading, setSearchVal } = userSlice.actions;
+export const { setSearchVal } = userSlice.actions;
 export default userSlice.reducer;

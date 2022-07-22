@@ -1,12 +1,8 @@
 import { useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { UserAvatar } from "components";
-import { updateProfile, setLoading } from "features/user";
-import toast from "react-hot-toast";
+import { updateProfile } from "features/user";
 import { useOnClickOutside } from "customHooks/useOnClickOutside";
-
-const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/dsxjhas6t/image/upload";
-const CLOUDINARY_UPLOAD_PRESET = "gjjzcn60";
 
 export const EditProfileModal = ({ setEditModal }) => {
   const { token, user } = useSelector((state) => state.auth);
@@ -20,37 +16,6 @@ export const EditProfileModal = ({ setEditModal }) => {
   );
 
   const [editInput, setEditInput] = useState(currentUser);
-  const [image, setImage] = useState(null);
-
-  const uploadImageFile = () => {
-    dispatch(setLoading());
-
-    const file = image;
-    const formData = new FormData();
-
-    formData.append("file", file);
-    formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
-    formData.append("folder", "stay-social");
-
-    fetch(CLOUDINARY_URL, {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        return dispatch(
-          updateProfile({
-            editInput: {
-              ...currentUser,
-              ...editInput,
-              profileAvatar: data.url,
-            },
-            token,
-          })
-        );
-      })
-      .catch((err) => console.error(err));
-  };
 
   const editChangeHandler = (e) => {
     const { name, value } = e.target;
@@ -60,9 +25,6 @@ export const EditProfileModal = ({ setEditModal }) => {
   const editFormHandler = (e) => {
     e.preventDefault();
 
-    if (image) {
-      uploadImageFile();
-    } else
       dispatch(
         updateProfile({ editInput: { ...currentUser, ...editInput }, token })
       );
@@ -95,29 +57,13 @@ export const EditProfileModal = ({ setEditModal }) => {
         </div>
 
         <label className="edit-profile relative w-max cursor-pointer mx-auto my-2">
-          <input
-            type="file"
-            accept="image/*"
-            className="hidden"
-            onChange={(e) => {
-              Math.round(e.target.files[0].size / 1024000) > 1
-                ? toast.error("File size should not be more than 1Mb")
-                : setImage(e.target.files[0]);
-            }}
-          />
+          
 
           <UserAvatar
-            user={
-              image
-                ? {
-                    ...currentUser,
-                    profileAvatar: URL.createObjectURL(image),
-                  }
-                : currentUser
-            }
+            user={currentUser}
           />
 
-          <i className="fa-solid fa-camera absolute text-md bottom-0 right-0"></i>
+          
         </label>
 
         <div className="flex flex-col items-center py-1 px-2  rounded border-lightGrey border focus-within:border-primary">

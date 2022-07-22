@@ -14,5 +14,5 @@ export { ProfileDetails } from "./components/ProfileDetails";
 export { EditProfileModal } from "./components/EditProfileModal";
 export { FollowListModal } from "./components/FollowListModal";
 
-export const { setLoading, setSearchVal } = userSlice.actions;
+export const { setSearchVal } = userSlice.actions;
 export default userSlice.reducer;
