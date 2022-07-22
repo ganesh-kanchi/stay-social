@@ -1,11 +1,9 @@
-import axios from "axios"
+import axios from "axios";
 
-const loginRequest = (loginCredentials) => {
-  return axios.post("/api/auth/login", loginCredentials );
+export const loginRequest = (loginInput) => {
+  return axios.post("/api/auth/login", loginInput);
 };
 
-const signupRequest = (signupCredentials) => {
-    return axios.post("/api/auth/signup", signupCredentials);
-}
-
-export { loginRequest, signupRequest };
+export const signupRequest = (signUpInput) => {
+  return axios.post("/api/auth/signup", signUpInput);
+};

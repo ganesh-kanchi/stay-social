@@ -1,77 +1,72 @@
-import { Typography, Button } from "@mui/material";
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import "./HomePage.css";
-import { NavBar } from "../../components/NavBar/NavBar";
-import {ProfileCard} from "../../components/ProfileCard/ProfileCard"
-import { HabitModal } from "../../components/Modal/Modal";
-import {fetchHabits, selectHabits} from "../../features/habits";
-import { useSelector } from "react-redux";
-import { HabitsListing } from "../../components/HabitListing/HabitListing";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllUsers } from "features/user";
+import { Loader, SuggestedUsers, NavBar, UserSearch, SortBar } from "components";
+import { NewPost, PostCard, getPosts } from "features/post";
+import { sortByDate } from "utilities";
 
 export const HomePage = () => {
-    const {user, token} = useSelector((state)=> state.auth);
-    const habitsData = useSelector(selectHabits);
-    const { firstName } = user;
-    useEffect( ()=>{
-        fetchHabits(token)
-        localStorage.setItem("habits",habitsData)
-        },[habitsData]
-    );
+    const dispatch = useDispatch();
+    const { user } = useSelector((state)=> state.auth);
+    const { users } = useSelector((state)=> state.user);
+    const { posts, loading, activeSort } = useSelector((state) => state.post);
 
-    const [isOpen,setIsOpen] = useState(false);
-    const handleOpen = () => setIsOpen(true);
+    useEffect( () => {
+        dispatch(getPosts());
+        dispatch(getAllUsers());
+    }, [dispatch]);
+
+    const loggedInUser = users.find((dbUser) => dbUser.username === user.username);
+    
+      const followingUsers = loggedInUser?.following;
+    
+      const postOfFollowingUsers = posts.filter(
+        (post) =>
+          followingUsers?.some(
+            (followingUser) => followingUser.username === post.username
+          )       
+        );
+    
+      const sortedPosts = sortByDate(postOfFollowingUsers, activeSort);
+
     return (
-        <div className="grid-page-container">
-            <Typography variant="h4" component="div" className="main-head">Track<span className="accent-text">Them</span>Habits</Typography>
-            <NavBar />
-            <ProfileCard />
-            <HabitModal isOpen={isOpen} setIsOpen={setIsOpen} />
+        <div className="grid sm:grid-cols-[5rem_1fr] lg:grid-cols-[15rem_1fr] lg:w-[80%] xl:grid-cols-[13rem_1fr_18rem] w-[100%] mb-16 sm:m-auto">
+            <NavBar />            
             
-            <div className="page-main-section">
-                <div className="habits-dashboard-head" >
-                    <Typography variant="h5" component="div" className="user-greeting"> 
-                        Welcome, {firstName}
-                    </Typography> 
-                    <select className="select-date" name="day" id="day">
-                        <option value="Yesterday">Yesterday</option>
-                        <option value="Today">Today</option>
-                        <option value="Tommorrow">Tommorrow</option>
-                    </select>
+            <div className="sm:border-x border-darkGrey">
+                <h1 className="text-bold p-4 sticky top-0 bg-[#25394D] backdrop-blur-sm z-20 border-b border-darkGrey flex items-center justify-between">
+                    Home
+                    <div className="block xl:hidden">
+                        <UserSearch />
+                    </div>
+                </h1>
+
+                <div>
+                    <NewPost />
+
+                    <SortBar />
+
+                    <div>
+                        {loading ? (
+                        <Loader />
+                        ) : sortedPosts?.length ? (
+                        [...sortedPosts]
+                            .reverse()
+                            .map((post) => <PostCard post={post} key={post._id} />)
+                        ) : (
+                        <div className="p-4 text-center">No posts</div>
+                        )
+                        }
+                    </div>
                 </div>
-                <div className="flex-four-column">
-                    {["Completed", "In progress", "Overdue", "Total"].map(task => 
-                            (<div className="flex-item card-minimal">
-                                <Typography variant="h5" component="div">{task}</Typography>
-                                <Typography variant="h3" component="div">0</Typography>
-                                <Typography variant="h6" component="div">Total Count</Typography>
-                            </div>))}
-                </div>
-                <div className="habits-dashboard-head">
-                    <Typography variant="h5" component="div">My Habits</Typography>
-                    <Button variant="text" onClick={handleOpen}>+ New Habit</Button>
-                </div>
-                {habitsData.length > 0 ? (
-                    <HabitsListing habits={habitsData} />
-                ): null}
-                
-                    {/* <HabitsListing habits={habitsData} /> */}
-                
-                {/* <Typography variant="h6" component="div">ACTIVE</Typography>
-                <div className="flex-four-column">
-                    {habitsData.map(task => 
-                            <HabitCard task={task} />
-                        )}
-                </div>
-                <Typography variant="h6" component="div">COMPLETED</Typography>
-                <div className="flex-four-column">
-                    {habitsData.map(task => 
-                        (<div className="flex-item card-minimal">
-                            <Typography variant="h5" component="div">{task}</Typography>
-                            <Typography variant="h3" component="div">16</Typography>
-                            <Typography variant="h6" component="div">Total Count</Typography>
-                        </div>))}
-                </div> */}
             </div>
+
+            <div className="hidden xl:block">
+                <UserSearch />
+                <SuggestedUsers /> 
+            </div>
+                
         </div>
     )
 }

@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { TextField, Button, Typography } from '@mui/material';
 import "./auth.css";
 import { Link } from "react-router-dom";
-import { Loader } from '../../components/Loader/Loader';
+import { Loader } from 'components/Loader/Loader';
 import { useSelector } from 'react-redux';
-import { signupHandler } from '../../features/auth';
+import { signupHandler } from 'features/auth';
 
 export const Signup = () => {
     const {loading} = useSelector((state) => state.auth);

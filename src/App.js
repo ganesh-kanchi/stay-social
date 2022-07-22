@@ -1,14 +1,12 @@
 import React from "react";
 import "./App.css";
 import {AllRoutes} from "./routes/AllRoutes"
-import {useSelector} from "react-redux";
-
+// import {useSelector} from "react-redux";
 
 function App() {
-  const {token} = useSelector(state=> state.auth);
-  console.log(token)
+  // const {token} = useSelector(state=> state.auth);
   return (
-    <div className="App">
+    <div className="bg-dark text-light">
       <AllRoutes />
     </div>
   );

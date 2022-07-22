@@ -3,15 +3,15 @@ import { Typography, Button, OutlinedInput,InputAdornment, IconButton, InputLabe
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { Link } from "react-router-dom"
 import "./auth.css";
-import { Loader } from '../../components/Loader/Loader';
-import { loginHandler } from '../../features/auth';
+import { Loader } from 'components/Loader/Loader';
+import { loginHandler } from 'features/auth';
 import { useDispatch, useSelector } from 'react-redux';
 
  export const Login = () => {
     const dispatch = useDispatch();
     const { loading } = useSelector((state) => state.auth)
     const [ login, setLogin ] = useState({ input: {}, error:"", showPassword: false});
-    const guestLogin = {email: "adarshbalika@gmail.com", password: "adarshBalika123"};
+    const guestLogin = {username: "ganesh-kanchi", password: "ganeshk123"};
 
     const credentialsChangeHandler = (e) => {
         const { name, value } = e.target;
@@ -38,20 +38,21 @@ import { useDispatch, useSelector } from 'react-redux';
             {loading ? <Loader /> : 
                 <form className="authentication-form" onSubmit={formSubmit} >
                 <Typography component="div" variant="h3">Login</Typography>
-            
                 <TextField 
+                    sx={{ input: { color: 'white' }, label: { color: 'white'}}}
                     required
                     id="outlined-name"
-                    label="Email"
-                    value={login.input['email'] || ""}
-                    name="email"
+                    className='text-field'
+                    label="User Name"
+                    value={login.input['username'] || ""}
+                    name="username"
                     onChange={credentialsChangeHandler}
                     />
-                
                 <FormControl variant="outlined">
 
-                    <InputLabel htmlFor="outlined-adornment-password">Password *</InputLabel>
+                    <InputLabel htmlFor="outlined-adornment-password" sx={{color: "white"}} >Password *</InputLabel>
                     <OutlinedInput
+                    sx={{color: "white"}}
                     required
                     id="outlined-adornment-password"
                     name='password'

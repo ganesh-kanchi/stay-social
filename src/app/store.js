@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import habitReducer from "../features/habits/habitsSlice"
-import authReducer from "../features/auth/authSlice"
+import authReducer from "features/auth";
+import postsSlice from "features/post";
+import userSlice from "features/user";
 
-export const store = configureStore({
-    reducer: {
-        habit: habitReducer,
-        auth: authReducer,
-    },
-})
+export default configureStore({
+  reducer: {
+    auth: authReducer,
+    post: postsSlice,
+    user: userSlice,
+  },
+});

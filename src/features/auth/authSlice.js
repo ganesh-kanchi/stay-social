@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { loginRequest, signupRequest } from "../../requests/authRequests";
+import { loginRequest, signupRequest } from "requests/authRequests";
 
 const initialState = {
     token: localStorage.getItem("token") || null,
-    user: JSON.parse(localStorage.getItem("user")) || {firstName: "user", lastName: "name"},
+    user: JSON.parse(localStorage.getItem("user")) || null,
     loading: false
 }
 

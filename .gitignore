@@ -4,7 +4,7 @@ node_modules/
 build/
 .DS_Store
 *.tgz
-track-them-habits*
+stay-social*
 template/src/__tests__/__snapshots__/
 lerna-debug.log
 npm-debug.log*
