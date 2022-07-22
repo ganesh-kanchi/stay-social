@@ -1,0 +1,22 @@
+.authentication-form{
+    display: flex;
+    min-width: 50vw;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.auth-page .text-field{
+    color: white;
+    /* background-color: white; */
+}
+
+.auth-page{
+    flex-direction: column;
+    min-height: 100vh;
+    max-width: 100vw;
+    gap: 2rem;
+}
+
+.auth-page .auth-input-field{
+    width: auto;
+}

@@ -1,14 +1,13 @@
-import { Routes, Route } from "react-router-dom";
+import React from "react";
 import "./App.css";
-import { LandingPage } from "./pages/LandingPage/LandingPage";
-
+import {AllRoutes} from "./routes/AllRoutes"
+// import {useSelector} from "react-redux";
 
 function App() {
+  // const {token} = useSelector(state=> state.auth);
   return (
-    <div className="App">
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-      </Routes>
+    <div className="bg-dark text-light">
+      <AllRoutes />
     </div>
   );
 }
